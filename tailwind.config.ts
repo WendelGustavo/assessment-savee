@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      textColor: {
+        'primary': 'var(--color-text-primary)',
+        'secondary': 'var(--color-text-secondary)',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
