@@ -1,12 +1,17 @@
-import Image from "next/image";
+import HomeContent from "app/components/HomeContent";
 import Navbar from "app/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="bg-white dark:bg-black color-black dark:color-white">
-      <header>
-        <Navbar />
-      </header>
+    <main className="bg-white dark:bg-black text-black dark:text-white">
+      <section>
+        <header>
+          <Navbar />
+        </header>
+      </section>
+      <section>
+        <HomeContent />
+      </section>
     </main>
   );
 }

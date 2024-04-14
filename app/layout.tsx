@@ -20,10 +20,10 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{metadata?.title?.toString()}</title>
-        <meta name="description" content={metadata.description || ""} />
+        <meta name="description" content={metadata?.description || ""} />
         <link rel="icon" href="./public/img/savee-logo.png" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter?.className + " dark"}>{children}</body>
     </html>
   );
 }
