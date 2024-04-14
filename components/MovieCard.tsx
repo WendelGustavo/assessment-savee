@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import IconLoading from "./IconLoading";
 
-interface MovieCardProps {
+export interface MovieCardProps {
   title: string;
   overview: string;
   posterImage: string;
@@ -16,9 +16,9 @@ const MovieCard: React.FC<MovieCardProps> = ({
   overview,
   posterImage,
   releaseDate,
-  loading = true,
+  loading,
 }) => {
-  const [isLoading, setIsLoading] = useState(loading);
+  const [isLoading, setIsLoading] = useState<boolean>(loading || false);
 
   return (
     <div>
