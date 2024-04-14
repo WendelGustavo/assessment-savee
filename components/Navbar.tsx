@@ -1,17 +1,35 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Navbar = () => {
   const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
 
   const toggleTheme = () => {
+    if (!isLightTheme) {
+      document.body.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.body.classList.remove("dark");
+      localStorage.theme = "light";
+    }
     setIsLightTheme((prevTheme) => !prevTheme);
-    document.body.classList.toggle("bg-white");
   };
 
+  useEffect(() => {
+    if (localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      setIsLightTheme(true);
+      document.body.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      setIsLightTheme(false);
+      document.body.classList.remove("dark");
+      localStorage.theme = "light";
+    }
+  }, []);
+
   return (
-    <nav className="fixed w-full z-20 top-0 start-0">
+    <nav className="absolute w-full z-20 top-0 start-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image
