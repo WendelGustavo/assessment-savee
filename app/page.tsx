@@ -1,5 +1,6 @@
-import HomeContent from "app/components/HomeContent";
-import Navbar from "app/components/Navbar";
+import HomeContent from "app/app/components/HomeContent";
+import Navbar from "app/app/components/Navbar";
+import { Footer } from "./components/Footer";
 
 export default function Home() {
   return (
@@ -11,6 +12,11 @@ export default function Home() {
       </section>
       <section>
         <HomeContent />
+      </section>
+      <section>
+        <footer>
+          <Footer />
+        </footer>
       </section>
     </main>
   );
