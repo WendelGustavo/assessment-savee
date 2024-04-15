@@ -4,20 +4,12 @@ import { Footer } from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="bg-white dark:bg-black text-black dark:text-white">
-      <section>
-        <header>
-          <Navbar />
-        </header>
-      </section>
+    <main className="bg-white dark:bg-black text-black dark:text-white relative min-h-screen">
+      <Navbar />
       <section>
         <HomeContent />
       </section>
-      <section>
-        <footer>
-          <Footer />
-        </footer>
-      </section>
+      <Footer />
     </main>
   );
 }

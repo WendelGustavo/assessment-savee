@@ -2,14 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import IconLoading from "./IconLoading";
-
-export interface MovieCardProps {
-  title: string;
-  overview: string;
-  posterImage: string;
-  releaseDate: string;
-  loading?: boolean;
-}
+import MovieCardProps  from "../types/movies/MovieCardType";
 
 const MovieCard: React.FC<MovieCardProps> = ({
   title,
@@ -19,6 +12,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   loading,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(loading || false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   return (
     <div>
@@ -30,11 +24,17 @@ const MovieCard: React.FC<MovieCardProps> = ({
             </div>
           )}
           <Image
-            src={posterImage}
+            src={!isError ? posterImage : "https://media.istockphoto.com/id/1055079680/pt/vetorial/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=ZcdPIVtARno3vcyqOhPrrY5RxnzfwTb5-22Uk5khr9Y=" }
             alt="Movie poster image"
             className="h-full w-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
             onLoad={() => isLoading && setIsLoading(false)}
-            layout="fill"
+            onError={() => {
+              setIsError(true);
+              setIsLoading(false);
+            }}
+            width={50}
+            height={50}
+            layout="responsive"
           />
         </div>
         <div className="p-4">
