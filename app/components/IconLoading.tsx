@@ -16,7 +16,7 @@ const IconLoading = () => {
           cy="50"
           fill="none"
           stroke="#FFf"
-          stroke-width="4"
+          strokeWidth="4"
           r="16"
           strokeDasharray="75.39822368615503 26.46607456205136"
           transform="rotate(11.3081 50 50)"
