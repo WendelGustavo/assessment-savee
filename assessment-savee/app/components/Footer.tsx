@@ -12,21 +12,21 @@ export const Footer = () => {
 
   return (
     <footer className="postion absolute bottom-0 w-full">
-      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between ">
         <span className="text-sm sm:text-center">
           © 2024{" "}
           <a
             href="https://www.linkedin.com/in/wendeldev"
             className="hover:underline"
           >
-            Wendel Gustavo
+            Wendel
           </a>
           . All Rights Reserved.
         </span>
         <div>
           <button
             type="button"
-            className="text-gray-900 border border-gray-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+            className="text-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
             onClick={() => scrollToPosition(0, 0)}
           >
             <svg

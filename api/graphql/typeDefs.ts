@@ -4,11 +4,12 @@ export const typeDefs = gql`
   type Movie {
     id: ID!
     title: String!
-    genre: String!
     releaseDate: String!
-    rating: Float!
+    rating: Float
     overview: String!
     posterImage: String!
+    countAverage: Int
+    genresName: [String]
   }
 
   type Query {

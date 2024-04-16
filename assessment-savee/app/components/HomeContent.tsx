@@ -1,27 +1,44 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
-import MovieCardProps from "../types/movies/MovieCardType";
+import { MovieModalProps, Movie } from "../types/movies";
 import clientConnection from "../services/apolloConfig";
 import { gql } from "@apollo/client";
 import LoadingCard from "./LoadingCard";
 import MoviesNotFound from "./MoviesNotFound";
+import { MovieModal } from "./MovieModal";
 
 const HomeContent = () => {
-  const [movies, setMovies] = useState<MovieCardProps[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
-  let typingTimer: NodeJS.Timeout;
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedMovie, setSelectedMovie] = useState<MovieModalProps | null>(
+    null
+  );
+  const typingTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const openModal = (index: number) => {
+    setSelectedMovie({ ...movies[index], showModal: true, closeModal });
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const handleInputChange = (Movie: string) => {
-    clearTimeout(typingTimer);
+    if (typingTimer.current) {
+      clearTimeout(typingTimer.current);
+    }
 
     setSearchValue(Movie);
 
-    typingTimer = setTimeout(() => requestMovies(Movie), 700);
+    typingTimer.current = setTimeout(() => requestMovies(Movie), 1500);
   };
 
-  const requestMovies = async (NameParam: string) => {
+  const requestMovies = async (NameParam: string): Promise<void> => {
+    console.log(NameParam);
     setIsLoading(true);
     const { data } = await clientConnection.query({
       query: gql`query ${
@@ -34,6 +51,9 @@ const HomeContent = () => {
         overview
         posterImage
         releaseDate
+        rating
+        genresName
+        countAverage
       }
     }`,
       variables: NameParam ? { title: NameParam } : {},
@@ -49,6 +69,20 @@ const HomeContent = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-4 lg:px-6 pt-6">
+      {showModal && (
+        <MovieModal
+          title={selectedMovie ? selectedMovie?.title : ""}
+          overview={selectedMovie ? selectedMovie?.overview : ""}
+          posterImage={selectedMovie ? selectedMovie?.posterImage : ""}
+          rating={selectedMovie ? selectedMovie?.rating : 0}
+          countAverage={selectedMovie ? selectedMovie?.countAverage : 0}
+          showModal={showModal}
+          releaseDate={selectedMovie ? selectedMovie?.releaseDate : ""}
+          closeModal={closeModal}
+          genresName={selectedMovie ? selectedMovie?.genresName : []}
+          loading={true}
+        />
+      )}
       <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
         <div className="grid grid-cols-2 gap-y-6">
           <h2 className="text-2xl font-bold">Top movies</h2>
@@ -72,7 +106,7 @@ const HomeContent = () => {
               <input
                 type="text"
                 id="simple-search"
-                className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 bg-white dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search movie name..."
                 value={searchValue}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +116,7 @@ const HomeContent = () => {
               />
             </div>
             <button
-              className="p-2.5 ms-2 text-sm font-medium border rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
+              className="p-2.5 ms-2 text-sm font-medium border rounded-lg dark:border-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300"
               onClick={() => requestMovies(searchValue)}
               type="button"
             >
@@ -105,10 +139,17 @@ const HomeContent = () => {
             </button>
           </form>
         </div>
+        {searchValue && (
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Showing results for:{" "}
+            <span className="font-medium">{searchValue}</span>
+          </p>
+        )}
+
         {movies.length === 0 && !isLoading && searchValue && (
           <MoviesNotFound movie={searchValue} />
         )}
-        <div className="mt-6 grid grid-cols-1 space-y-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-6 md:space-y-0 lg:gap-x-6 lg:space-y-0">
+        <div className="mt-6 grid grid-cols-1 space-y-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-6 md:space-y-0 lg:gap-x-6 lg:space-y-0 mb-6">
           {isLoading &&
             movies.length === 0 &&
             Array.from({ length: 20 }).map((_: any, index: number) => (
@@ -116,15 +157,17 @@ const HomeContent = () => {
                 {isLoading && movies.length === 0 && <LoadingCard />}
               </div>
             ))}
-          {movies.map((movie: MovieCardProps, index: number) => (
-            <MovieCard
-              key={index}
-              title={movie.title}
-              overview={movie.overview}
-              posterImage={movie.posterImage}
-              releaseDate={movie.releaseDate}
-              loading={true}
-            />
+          {movies.map((movie: Movie, index: number) => (
+            <div key={index} onClick={() => openModal(index)}>
+              <MovieCard
+                id={() => movie?.id}
+                title={movie?.title || ""}
+                overview={movie?.overview || ""}
+                posterImage={movie?.posterImage || ""}
+                releaseDate={movie?.releaseDate || ""}
+                loading={true}
+              />
+            </div>
           ))}
         </div>
       </div>
