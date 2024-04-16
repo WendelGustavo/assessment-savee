@@ -42,20 +42,20 @@ const Navbar = () => {
           >
             <Image
               priority
+              width={60}
+              height={60}
               src={
                 isLightTheme
                   ? "/img/savee-logo-dark.png"
                   : "/img/savee-logo.png"
               }
-              width={60}
-              height={60}
               alt="SAVEE Logo"
             />
           </a>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
-              className="text-gray-900 border border-gray-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+              className="text-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
               onClick={toggleTheme}
             >
               <svg
