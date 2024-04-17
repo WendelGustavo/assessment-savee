@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Top Movies List (Assessment)
 
-## Getting Started
+This is an assessment project for showcasing proficiency in web development. It's a Next.js application that renders a list of top movies using any available free API. It utilizes TailwindCSS for styling, GraphQL for fetching data from the API, and Jest for testing.
 
-First, run the development server:
+ - Demonstration video: [Demo-Video](https://drive.google.com/file/d/1QVPJOqRf_vANeiBDo6s1UVNxFcwr6R2n/view?usp=sharing)
+ - Demo app: Demo-App
+
+## 🖥️ Installation
+
+### Frontend
+
+1. Clone this repo
+```bash
+git clone https://github.com/WendelGustavo/assessment-savee.git
+```
+
+2. Go to the project folder
+```bash
+cd assessment-savee
+and
+cd assessment-savee
+```
+
+3. Install dependencies
+```bash
+pnpm install
+```
+
+4. Run Frontend
+```bash
+pnpm run dev
+```
+
+### Running the API
+1. Running a new Terminal
+
+2. Go to the API folder
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd assessment-savee
+and
+cd api
+```
+
+3. Install dependencies
+```bash
+pnpm install
+```
+
+4. Run start
+```bash
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Running the testes
 
-## Learn More
+1. With the api or application folder open, run the tests.
+```bash
+pnpm run test
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Tech requirements
+- Use `pnpm` or `bun` for dependencies management
+- TypeScript wherever possible
+- TailwindCSS for styling
+- GraphQL for API fetching
+- Jest or `bun test` for testing.
