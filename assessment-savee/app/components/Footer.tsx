@@ -2,6 +2,12 @@
 import React from "react";
 
 export const Footer = () => {
+
+    /**
+   * Scrolls the window to the specified position.
+   * @param x The horizontal position to scroll to.
+   * @param y The vertical position to scroll to.
+   */
   const scrollToPosition = (x: number, y: number) => {
     window.scrollTo({
       top: y,

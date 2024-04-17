@@ -31,3 +31,7 @@ export interface MovieModalProps {
   loading?: boolean;
 }
 
+export interface MoviesNotFoundProps {
+  movie: string;
+}
+

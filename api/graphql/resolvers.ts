@@ -1,6 +1,9 @@
 import Movies from '../models/movies';
 import Movie from '../types/index';
 
+/**
+ * Resolvers for the GraphQL schema.
+ */
 export const resolvers = {
     Query: {
         movies: async () : Promise<Movie[]> => {

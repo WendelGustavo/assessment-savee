@@ -4,6 +4,19 @@ import Image from "next/image";
 import IconLoading from "./IconLoading";
 import StarRating from "./StarRating";
 
+/**
+ * MovieModal component for displaying detailed information about a movie in a modal dialog.
+ * @param title The title of the movie.
+ * @param overview A brief overview of the movie.
+ * @param posterImage The URL of the movie's poster image.
+ * @param rating The average rating of the movie.
+ * @param countAverage The number of reviews for the movie.
+ * @param showModal Indicates whether the modal should be shown.
+ * @param closeModal Function to close the modal.
+ * @param releaseDate The release date of the movie.
+ * @param genresName An array of genres associated with the movie.
+ * @param loading Indicates whether the component is in a loading state.
+ */
 export const MovieModal: React.FC<MovieModalProps> = ({
   title,
   overview,
@@ -16,6 +29,8 @@ export const MovieModal: React.FC<MovieModalProps> = ({
   genresName,
   loading,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(loading || true);
+
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       closeModal();
@@ -31,22 +46,27 @@ export const MovieModal: React.FC<MovieModalProps> = ({
     }
   };
 
-  const openYoutubeTrailer = () => {
-    const searchQuery = encodeURIComponent(`${title} trailer`); 
-    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${searchQuery}`;
-    window.open(youtubeSearchUrl, "_blank");
-  }
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("click", handleClickOutside);
+
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
-  const [isLoading, setIsLoading] = useState<boolean>(loading || true);
+  useEffect(() => {
+    if (showModal) {
+      setIsLoading(loading || true);
+    }
+  }, [showModal, loading]);
+
+  const openYoutubeTrailer = () => {
+    const searchQuery = encodeURIComponent(`${title} trailer`);
+    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${searchQuery}`;
+    window.open(youtubeSearchUrl, "_blank");
+  };
 
   return (
     showModal && (
@@ -79,18 +99,14 @@ export const MovieModal: React.FC<MovieModalProps> = ({
                 </button>
 
                 <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-                  <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
+                  <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5 relative">
                     {isLoading && (
-                      <div className="absolute inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center">
+                      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 z-10 flex items-center justify-center">
                         <IconLoading />
                       </div>
                     )}
                     <Image
-                      src={
-                        !isLoading
-                          ? posterImage
-                          : "https://media.istockphoto.com/id/1055079680/pt/vetorial/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=ZcdPIVtARno3vcyqOhPrrY5RxnzfwTb5-22Uk5khr9Y="
-                      }
+                      src={posterImage}
                       alt="Movie poster image"
                       width={500}
                       height={750}
@@ -99,6 +115,7 @@ export const MovieModal: React.FC<MovieModalProps> = ({
                       onLoad={() => isLoading && setIsLoading(false)}
                     />
                   </div>
+
                   <div className="sm:col-span-8 lg:col-span-7">
                     <h2 className="text-2xl font-bold sm:pr-12">{title}</h2>
 
@@ -152,9 +169,9 @@ export const MovieModal: React.FC<MovieModalProps> = ({
                         <button
                           type="button"
                           className="w-full py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
-                          onClick={ () => openYoutubeTrailer() }
+                          onClick={() => openYoutubeTrailer()}
                         >
-                          Watch trailer 
+                          Watch trailer
                         </button>
                       </div>
                     </section>

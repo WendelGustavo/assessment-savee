@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconLoading from "./IconLoading";
 import { MovieCardProps } from "../types/movies";
 
@@ -10,14 +10,19 @@ const MovieCard: React.FC<MovieCardProps> = ({
   releaseDate,
   loading,
 }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(loading || false);
+  const [isLoading, setIsLoading] = useState<boolean>(loading || true);
   const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLoading(loading || true);
+    setIsError(false);
+  }, [title, overview, posterImage, releaseDate, loading]);
 
   return (
     <div className="group relative rounded-lg shadow-md text-justify mb-5 dark:border dark:border-gray-600 cursor-pointer h-[50vh]">
       <div className="relative w-full overflow-hidden rounded-t-lg h-[55%]">
         {isLoading && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 z-10 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black bg-opacity-75 z-10 flex items-center justify-center">
             <IconLoading />
           </div>
         )}
@@ -29,9 +34,9 @@ const MovieCard: React.FC<MovieCardProps> = ({
           }
           alt="Movie poster image"
           width={500}
-          height={750} 
+          height={750}
           className="h-full w-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
-          onLoad={() => isLoading && setIsLoading(false)}
+          onLoad={() => setIsLoading(false)}
           onError={() => {
             setIsError(true);
             setIsLoading(false);
@@ -49,8 +54,8 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </p>
       </div>
       <div className="position-absolute bottom-15 w-full h-[5%] pr-4">
-          <p className="text-sm text-gray-400 text-right">{releaseDate}</p>
-        </div>
+        <p className="text-sm text-gray-400 text-right">{releaseDate}</p>
+      </div>
     </div>
   );
 };

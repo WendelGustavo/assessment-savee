@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description: "SAVEE - Assessment test",
 };
 
+/** 
+ * Root layout for the application.
+ * @param children The children components to render.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
