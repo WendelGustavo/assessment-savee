@@ -3,57 +3,85 @@ import Movie from '../../types/index';
 import utilResponse from '../../util/response';
 
 
-const urlGener = "https://api.themoviedb.org/3/genre/movie/list"
+const apiUrl = "https://api.themoviedb.org/3/";
 const apiKey = "73132c33a72780334a3091bab6c9fac4";
-const apiUrl = "https://api.themoviedb.org/3/movie";
-const searchUrl = "https://api.themoviedb.org/3/search/movie";
 
-
+/**
+  *Get the genres name of a movie.
+  *@param movieGenres The genres of the movie.
+  *@returns The genres name of the movie.
+ */
 const getGenresName = async (movieGenres: number[]) : Promise<string[]> => {
 
-    const response = await axios.get(`${urlGener}?api_key=${apiKey}&language=en-US`);
+    const response = await axios.get(`${apiUrl}genre/movie/list?api_key=${apiKey}&language=en-US`);
 
-    const nameGenres = response.data.genres.filter((genre: any) => movieGenres.includes(genre.id)).map((genre: any) => genre.name);
+    const matchingGenres = response.data.genres.filter((genre: any) => {
+        if (!movieGenres || !Array.isArray(movieGenres)) {
+            return false;
+        }
+        return movieGenres.includes(genre.id);
+    });
+
+    const nameGenres: string[] = matchingGenres.map((genre: any) => genre.name);
 
     return nameGenres;
 };
 
-
-
+/**
+ * Get all movies from the API.
+ * @returns The list of movies.
+ */
 const getAllMovies = async (): Promise<Movie[]> => {
     if (!apiUrl) {
         throw new Error('API_URL environment variable is not defined.');
     }
 
-    const response = await axios.get(`${apiUrl}/popular?api_key=${apiKey}&language=en-US`);
+    const response = await axios.get(`${apiUrl}movie/popular?api_key=${apiKey}&language=en-US`);
 
     const newData: Movie[] = await Promise.all(response?.data?.results?.map(async (movie: []) => {
         return await utilResponse.tradeResponseFormat(movie);
     }));
 
-    getGenresName(response?.data?.results[0]?.genre_ids);
-
     return newData;
 };
 
+/**
+ *Get a movie by its ID.
+ *@param id The ID of the movie.
+ *@returns The movie with the given ID.
+ */
 const getMovieById = async (id: number): Promise<Movie[]> => {
 
-    const response = await axios.get(`${apiUrl}/${id}?api_key=${apiKey}&language=en-US`);
+    const response = await axios.get(`${apiUrl}movie/${id}?api_key=${apiKey}&language=en-US`);
+
+    if (!response?.data) {
+        return [];
+    }
+
+    response.data.genres_ids = response.data.genres;
 
     const arrayResponse = [response?.data];
+
+    
 
     const newData: Movie[] = await Promise.all(arrayResponse.map(async (movie: []) => {
         return await utilResponse.tradeResponseFormat(movie);
     }));
 
+
     return newData;
 };
 
+/**
+ *Get a movie by its title.
+ *@param title The title of the movie.
+ *@returns The movie with the given title.
+ */
 const getMovieByTitle = async (title: string): Promise<Movie[]> => {
 
-    const response = await axios.get(`${searchUrl}?api_key=${apiKey}&language=en-US&query=${title}`);
+    const response = await axios.get(`${apiUrl}search/movie?api_key=${apiKey}&language=en-US&query=${title}`);
 
-    if (response?.data?.results?.length === 0) {
+    if (!response?.data?.results) {
         return [];
     }
 

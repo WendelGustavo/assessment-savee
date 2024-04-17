@@ -37,8 +37,13 @@ const HomeContent = () => {
     typingTimer.current = setTimeout(() => requestMovies(Movie), 1500);
   };
 
+  /**
+   * Function to make a request for movies from the API.
+   * @param NameParam The name parameter to be used in the query. If provided, it fetches a specific movie; otherwise, it returns a list of movies.
+   * @returns A Promise that resolves when the request is completed.
+   */
   const requestMovies = async (NameParam: string): Promise<void> => {
-    console.log(NameParam);
+    setMovies([]);
     setIsLoading(true);
     const { data } = await clientConnection.query({
       query: gql`query ${
@@ -141,8 +146,15 @@ const HomeContent = () => {
         </div>
         {searchValue && (
           <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-            Showing results for:{" "}
+            Showing results for:{" "} 
             <span className="font-medium">{searchValue}</span>
+
+            <span>
+              <button className="ml-2 font-bold text-red-500 dark:text-red-400" onClick={() => handleInputChange("")}>
+                X
+              </button>
+              
+            </span>
           </p>
         )}
 

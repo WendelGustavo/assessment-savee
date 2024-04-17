@@ -1,5 +1,7 @@
 import { gql } from 'apollo-server';
 
+
+// Define the schema using the GraphQL schema language
 export const typeDefs = gql`
   type Movie {
     id: ID!

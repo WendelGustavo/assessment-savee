@@ -5,6 +5,9 @@ import Image from "next/image";
 const Navbar = () => {
   const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
 
+  /**
+   * Function to toggle between light and dark themes.
+   */
   const toggleTheme = () => {
     if (!isLightTheme) {
       document.body.classList.add("dark");
@@ -16,6 +19,9 @@ const Navbar = () => {
     setIsLightTheme((prevTheme) => !prevTheme);
   };
 
+  /**
+   * useEffect hook to set the theme based on local storage or user preference.
+   */
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||

@@ -1,9 +1,11 @@
-import React from "react";
+import React from "react"
+import { MoviesNotFoundProps } from "../types/movies"
 
-interface MoviesNotFoundProps {
-  movie: string;
-}
-
+/**
+ * MoviesNotFound component for displaying a message when a movie is not found.
+ * @param movie The title of the movie that was not found.
+ */
+  
 const MoviesNotFound = ({ movie }: MoviesNotFoundProps) => {
   return (
     <div className="flex flex-col items-center justify-center pt-20">

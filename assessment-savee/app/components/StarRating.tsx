@@ -1,5 +1,10 @@
 "use client";
-import { StartProps } from "../types/start";
+import { StartProps } from "../types/star";
+
+/**
+ * StarRating component for displaying a star rating.
+ * @param rating The rating to be displayed.
+ */
 const StarRating = ({ rating }: StartProps) => {
   return (
     <div className="flex items-center">

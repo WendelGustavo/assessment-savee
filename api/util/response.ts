@@ -4,6 +4,12 @@ import movieModel from '../models/movies/index';
 const url = "https://image.tmdb.org/t/p/w500";
 const apiKey = "73132c33a72780334a3091bab6c9fac4";
 
+/**
+ * Format the response of the API to the Movie type.
+ * @param movie The movie object to be formatted.
+ * @returns The formatted movie object.
+ */
+
 const tradeResponseFormat = async (movie: any): Promise<Movie> => {
     return {
         id: movie?.id,
