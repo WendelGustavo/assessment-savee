@@ -8,9 +8,6 @@
     "dev": "nodemon index.ts",
     "build": "tsc"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "keywords": [],
   "author": "WendelGustavo",
   "license": "MIT",
