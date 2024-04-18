@@ -1,14 +1,14 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "allowJs": true,
-      "checkJs": true,
-      "esModuleInterop": true,
-      "module": "CommonJS",
-      "strict": true
-    },
-    "include": [
-      "src/**/*"
-    ]
+  "compilerOptions": {
+    "target": "ESNext",
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "strict": true
+  },
+  "include": [
+    "**/*.ts", 
+    "**/*.js" 
+  ]
 }
-  
