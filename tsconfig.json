@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
+    "target": "ESNext",
+    "module": "CommonJS",
     "esModuleInterop": true
   },
-  "include": ["*.ts"]
+  "include": ["*.ts", "index.ts"]
 }
