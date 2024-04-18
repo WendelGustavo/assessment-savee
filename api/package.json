@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "WendelGustavo",
