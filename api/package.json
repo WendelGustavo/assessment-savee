@@ -2,10 +2,11 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon index.ts"
+    "dev": "nodemon index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "WendelGustavo",
