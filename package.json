@@ -7,7 +7,7 @@
     "test": "jest",
     "dev": "nodemon index.ts",
     "start": "ts-node index.ts",
-    "build": "tsup"
+    "build": "tsup index.ts"
   },
   "keywords": [],
   "author": "WendelGustavo",
@@ -28,6 +28,7 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   }
 }
