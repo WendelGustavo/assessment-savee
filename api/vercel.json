@@ -1,3 +1,0 @@
-{
-    "source": "/api/(.*)", "destination": "/api"
-}
