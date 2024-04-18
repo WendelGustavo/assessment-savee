@@ -3,7 +3,8 @@
 This is an assessment project for showcasing proficiency in web development. It's a Next.js application that renders a list of top movies using any available free API. It utilizes TailwindCSS for styling, GraphQL for fetching data from the API, and Jest for testing.
 
  - Demonstration video: [Demo-Video](https://drive.google.com/file/d/1QVPJOqRf_vANeiBDo6s1UVNxFcwr6R2n/view?usp=sharing)
- - Demo app: Demo-App
+ - Demo app: [Demo-App](https://assessment-savee-app.vercel.app)
+ - Trello: [Trello-App](https://trello.com/invite/b/Riga7PiT/ATTIff5a4b4526b639daa06aa6950ec1a0829BF2DDC7/assessment-savee)
 
 ## 🖥️ Installation
 
