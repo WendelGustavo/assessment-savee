@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon index.ts",
-    "build": "tsc"
+    "build": "nodemon index.ts"
   },
   "keywords": [],
   "author": "WendelGustavo",
