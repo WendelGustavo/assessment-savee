@@ -17,7 +17,8 @@
     "apollo-server": "^3.13.0",
     "axios": "^1.6.8",
     "graphql": "^16.8.1",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
   },
   "engines": {
     "node": "20.10.0"
