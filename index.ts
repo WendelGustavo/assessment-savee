@@ -4,7 +4,9 @@ import { resolvers } from './graphql/resolvers';
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-server.listen().then(({ url }: { url: string }) => {
-    console.log(`🚀 Server ready at ${url}`);
+const PORT = process.env.PORT || 4000;
+
+server.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
 });
   

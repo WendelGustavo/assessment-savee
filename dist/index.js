@@ -135,6 +135,7 @@ var resolvers = {
 
 // index.ts
 var server = new import_apollo_server2.ApolloServer({ typeDefs, resolvers });
-server.listen().then(({ url: url2 }) => {
-  console.log(`\u{1F680} Server ready at ${url2}`);
+var PORT = process.env.PORT || 4e3;
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
